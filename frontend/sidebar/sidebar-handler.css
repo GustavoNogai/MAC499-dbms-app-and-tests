@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar {
+    float: left;
+    width: 85px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+.column {
+    float: left;
+    transition: 0.5s;
+}
+
+.left {
+    width: 85px;
+    height: 100%;
+}
+
+.right {
+    width: calc(100% - 85px);
+    height: 100%;
+    margin-left: 85px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

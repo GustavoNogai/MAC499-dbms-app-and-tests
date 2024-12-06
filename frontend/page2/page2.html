@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="../page2/page2.css">
+	<link rel="stylesheet" href="../sidebar/sidebar-handler.css">
+	<title> Page 2 </title>
+</head>
+
+<body>
+    <div class="row">
+
+        <div class="column left">
+	        <object id="sidebar" data="../sidebar/sidebar.html"></object>
+        </div>
+
+        <div class="column right" style="margin-left: 85px;">
+            MySQL
+            <br>
+            <input type="text" id="input">
+            <button id="get">GET</button>
+            <button id="post">POST</button>
+            <br>
+            <button id="getdb">GETDB</button>
+            <br>
+            Resposta do get:
+            <br>
+            <div id="txt"></div>
+            <br>
+            <br>
+            <form id="form" autocomplete="on">
+                <label for="fname">Name:</label><br>
+                    <input type="text" id="fname" name="fname" placeholder="Nome" autocomplete="on">
+                <br>
+                <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" placeholder="Email" autocomplete="on">
+                <br>
+                <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" placeholder="Senha" autocomplete="on">
+                <br>
+                <br>
+                <input type="submit" id="submit" value="Submit">
+                <input type="submit" id="patch" value="Patch">
+                <input type="submit" id="delete" value="Delete">
+            </form>
+        </div>
+
+    </div>
+    
+    <script src="../page2/page2.js"></script>
+    <script src="../sidebar/sidebar-handler.js"></script>
+    
+</body>
+    
+</html>
