@@ -23,8 +23,7 @@ queryBtn.addEventListener("click", queryDB);
 clearBtn.addEventListener("click", clearOut);
 
 editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/pgsql");
-//editor.session.setMode("ace/mode/mysql");
+editor.session.setMode("ace/mode/mysql");
 editor.setOptions({
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true,
@@ -32,14 +31,15 @@ editor.setOptions({
     fontSize: "16px",
     wrap: true,
     autoScrollEditorIntoView: true,
-    placeholder: "Escreva seu código para PostgreSQL aqui!",
+    placeholder: "Escreva seu código para MySQL aqui!",
 });
 
 
 async function queryDB(e) {
     e.preventDefault();
     let query = editor.getValue();
-    const res = await fetch(baseURL + "pgquerydb", 
+    let command = (query.split(" ")[0]).toUpperCase();
+    const res = await fetch(baseURL + "myquerydb", 
         {
             method:"POST",
             headers: {
@@ -56,27 +56,59 @@ async function queryDB(e) {
         console.warn("Aviso: " + res.headers.get("warning"));
     } 
     else if (res.ok) {
-        console.log(data.data.command + " executado com sucesso!");
+        console.log(command + " executado com sucesso!");
         //txt.innerText = JSON.stringify(data.data.rows);
 
         console.log(res);
         console.log(data);
 
-        if(data.data.command === "SELECT") {
-            if(data.data.rowCount === 0) {
-                const colNames = data.data.fields;
-                const table = document.createElement('table');
-                const header = document.createElement('tr');
-                header.innerHTML += colNames.map(name => `<th>${name.name}</th>`).join('');
-                table.appendChild(header);
-                txt.innerHTML = data.data.command + " executado com sucesso!<br><br><br>";
-                txt.innerHTML += table.outerHTML;
+        if(command === "SELECT" || command === "DESCRIBE" || command === "DESC" || command === "EXPLAIN" || command === "SHOW") {
+            if(data.data.length === 0) {
+                let queryArray = query.split(" ");
+                let fromPos = queryArray.findIndex((element) => element.toUpperCase() === "FROM");
+                if (fromPos === -1) {
+                    console.log("Erro: Comando " + command + " sem FROM");
+                    txt.innerHTML = "<span style='color:#C60C30'>Erro: Comando " + command + " sem FROM </span>";
+                    return;
+                }
+                let tableName = queryArray[fromPos + 1];
+                //TODO SHOW columns FROM 'descobrir o nome da tabela';
+                let queryAux = "SHOW COLUMNS FROM " + tableName + ";";
+                let resAux = await fetch(baseURL + "myquerydb", 
+                    {
+                        method:"POST",
+                        headers: {
+                            "Content-Type":"application/json"
+                        },
+                        body: JSON.stringify({
+                            content: queryAux
+                        })
+                    }    
+                );
+                console.log(resAux);
+                if (resAux.ok) {
+                    let dataAux = await resAux.json();
+                    console.log(dataAux);
+                    let colNames = dataAux.data;
+                    console.log(colNames)
+                    let table = document.createElement('table');
+                    let header = document.createElement('tr');
+                    header.innerHTML += colNames.map(name => `<th>${name.Field}</th>`).join('');
+                    table.appendChild(header);
+                    txt.innerHTML = command + " executado com sucesso!<br><br><br>";
+                    txt.innerHTML += table.outerHTML;
+                    return;
+                }
+                else {
+                    console.log("Erro: " + data.error);
+                    txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
+                }
                 return;
             }
 
-            const keys = Object.keys(data.data.rows); // get the names properly
+            const keys = Object.keys(data.data); // get the names properly
             console.log(keys)
-            const colNames = Object.keys(data.data.rows[keys[0]]); // get all column names
+            const colNames = Object.keys(data.data[keys[0]]); // get all column names
             console.log(colNames)
             // Let's form table and header first
             const table = document.createElement('table');
@@ -87,30 +119,29 @@ async function queryDB(e) {
             // Now lets append all the rows
             const rows = keys.map((key) => {
               const tr = document.createElement('tr');
-              tr.innerHTML += colNames.map(val => `<td>${data.data.rows[key][val]}</td>`).join('');
+              tr.innerHTML += colNames.map(val => `<td>${data.data[key][val]}</td>`).join('');
               return tr;
             });
 
             rows.forEach(row => table.appendChild(row));
 
             // render
-            txt.innerHTML = data.data.command + " executado com sucesso!<br><br><br>";
+            txt.innerHTML = command + " executado com sucesso!<br><br><br>";
             txt.innerHTML += table.outerHTML;
         }
-        else if(data.data.command === null) {
+        else if(command === null) {
             console.log("Query vazia!\n Nenhum comando foi executado!");
             txt.innerHTML = "Query vazia!<br> Nenhum comando foi executado!";
         }
         else {
-            console.log(data.data.command + " executado com sucesso!");
-            txt.innerHTML = data.data.command + " executado com sucesso!";
+            console.log(command + " executado com sucesso!");
+            txt.innerHTML = command + " executado com sucesso!";
         }
     }
     else {
         console.log("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
     }
-    console.log(data.data.rows);
 }
 
 
@@ -122,16 +153,17 @@ function clearOut(e) {
 
 async function getDB(e){
     e.preventDefault();
-    const res = await fetch(baseURL + "pggetdb", 
+    const res = await fetch(baseURL + "mygetdb", 
         {
             method:"GET"
         }    
     );
     const data = await res.json();
+    console.log(data)
     if (res.ok) {
-        const keys = Object.keys(data.data.rows); // get the names properly
+        const keys = Object.keys(data.data); // get the names properly
         console.log(keys)
-        const colNames = Object.keys(data.data.rows[keys[0]]); // get all column names
+        const colNames = Object.keys(data.data[keys[0]]); // get all column names
         console.log(colNames)
         // Let's form table and header first
         const table = document.createElement('table');
@@ -142,20 +174,20 @@ async function getDB(e){
         // Now lets append all the rows
         const rows = keys.map((key) => {
           const tr = document.createElement('tr');
-          tr.innerHTML += colNames.map(val => `<td>${data.data.rows[key][val]}</td>`).join('');
+          tr.innerHTML += colNames.map(val => `<td>${data.data[key][val]}</td>`).join('');
           return tr;
         });
 
         rows.forEach(row => table.appendChild(row));
 
         // render
-        txt.innerHTML = "GetDB executado com sucesso!<br><br><br>";
+        txt.innerHTML = `GetDB do Banco de Dados "user" executado com sucesso!<br><br><br>`;
         txt.innerHTML += table.outerHTML;
     }
     else {
         const data = await res.json();
         console.log("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
     }
 }
 
@@ -167,7 +199,7 @@ async function postDB(e){
         email.placeholder = "Este campo é obrigatório!";
         return -1;
     }
-    const res = await fetch(baseURL + "pgpostdb", 
+    const res = await fetch(baseURL + "mypostdb", 
         {
             method:"POST",
             headers: {
@@ -193,7 +225,7 @@ async function postDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }
@@ -206,7 +238,7 @@ async function patchDB(e){
         email.placeholder = "Este campo é obrigatório!";
         return -1;
     }
-    const res = await fetch(baseURL + "pgpatchdb", 
+    const res = await fetch(baseURL + "mypatchdb", 
         {
             method:"PATCH",
             headers: {
@@ -232,7 +264,7 @@ async function patchDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }
@@ -245,7 +277,7 @@ async function deleteDB(e){
         email.placeholder = "Este campo é obrigatório!";
         return -1;
     }
-    const res = await fetch(baseURL + "pgdeletedb", 
+    const res = await fetch(baseURL + "mydeletedb", 
         {
             method:"DELETE",
             headers: {
@@ -269,7 +301,7 @@ async function deleteDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#C60C30'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }

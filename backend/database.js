@@ -70,7 +70,6 @@ await pgClient.query(pgCreateDB)
 
 await pgClient.end()
 
-
 pgPool.connect(async (err, client) => {
     if (err) {
         return console.error("PostgreSQL: Erro ao conectar: " + err.message + "\n");
@@ -258,6 +257,22 @@ export let pgDeleteUser = (dados) => {
 };
 
 
+export let pgQuery = (query) => {
+    console.log("Postgres Database:");
+    return new Promise((resolve, reject) => {
+        pgPool.query(query, function (err, result){
+            if (err){
+                console.error("  Postgres: Erro ao executar a query: " + err.message + "\n");
+                reject(err);
+            }
+            else {
+                console.log("  Postgres: Query executada com sucesso!\n");
+                resolve(result);
+            }
+        });
+    });
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -348,55 +363,18 @@ export let myDeleteUser = (dados) => {
     });
 };
 
-
-/*let db = new sqlite3.Database(DBSOURCE, sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-      // Cannot open database
-      console.error(err.message);
-      throw err;
-    }
-    else {
-        console.log('Connected to the SQlite database.')
-        myPool.query(`CREATE TABLE user (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name text, 
-            email text UNIQUE, 
-            password text, 
-            CONSTRAINT email_unique UNIQUE (email)
-            )`,(err) => {
-                if (err) {
-                    return console.log(err.message);
-                }else{
-                    // Table just created, creating some rows
-                    var insert = 'INSERT INTO user (name, email, password) VALUES (?,?,?)'
-                    myPool.query(insert, ["admin","admin@example.com","admin123456"])
-                    myPool.query(insert, ["user","user@example.com","user123456"])
-                }
+export let myQuery = (query) => {
+    console.log("MySQL Database:");
+    return new Promise((resolve, reject) => {
+        myPool.query(query, function (err, result){
+            if (err){
+                console.error("  MySQL: Erro ao executar a query: " + err.message + "\n");
+                reject(err);
             }
-        );
-        db.close();
-    }
-})*/
-
-
-/*
-module.exports = {
-    pgPool,
-    myPool,
-    getUser,
-    insertUser,
-    patchUser,
-    deleteUser
+            else {
+                console.log("  MySQL: Query executada com sucesso!\n");
+                resolve(result);
+            }
+        });
+    });
 }
-
-module.exports.pgPool = pgPool;
-
-module.exports.myPool = myPool;
-
-module.exports.getUser = getUser;
-
-module.exports.insertUser = insertUser;
-
-module.exports.patchUser = patchUser;
-
-module.exports.deleteUser = deleteUser;*/

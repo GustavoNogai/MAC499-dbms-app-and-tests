@@ -62,7 +62,7 @@ async function queryDB(e) {
         console.log(res);
         console.log(data);
 
-        if(data.data.command === "SELECT") {
+        if(data.data.command === "SELECT" || data.data.command === "DESCRIBE" || data.data.command === "DESC" || data.data.command === "EXPLAIN" || data.data.command === "SHOW") {
             if(data.data.rowCount === 0) {
                 const colNames = data.data.fields;
                 const table = document.createElement('table');
@@ -108,7 +108,7 @@ async function queryDB(e) {
     }
     else {
         console.log("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#FF0800'>Erro: " + data.error + "</span>";
     }
     console.log(data.data.rows);
 }
@@ -149,13 +149,13 @@ async function getDB(e){
         rows.forEach(row => table.appendChild(row));
 
         // render
-        txt.innerHTML = "GetDB executado com sucesso!<br><br><br>";
+        txt.innerHTML = `GetDB do bd "test" executado com sucesso!<br><br><br>`;
         txt.innerHTML += table.outerHTML;
     }
     else {
         const data = await res.json();
         console.log("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#FF0800'>Erro: " + data.error + "</span>";
     }
 }
 
@@ -193,7 +193,7 @@ async function postDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#FF0800'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }
@@ -232,7 +232,7 @@ async function patchDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#FF0800'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }
@@ -269,7 +269,7 @@ async function deleteDB(e){
     else {
         let data = await res.json();
         console.error("Erro: " + data.error);
-        txt.innerHTML = "Erro: " + data.error;
+        txt.innerHTML = "<span style='color:#FF0800'>Erro: " + data.error + "</span>";
     }
     form.reset();
 }

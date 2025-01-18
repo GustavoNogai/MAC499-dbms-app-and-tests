@@ -14,7 +14,7 @@ body {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #1d1d1d;
   transition: 0.5s;
   overflow-x: hidden;
   padding-top: 60px;
@@ -22,15 +22,15 @@ body {
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 13px 14px 27px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 22px;
   color: #818181;
   display: block;
 }
 
 .sidebar a:hover {
-  color: #f1f1f1;
+  opacity: 70%;
 }
 
 main .sidebar {
@@ -49,6 +49,12 @@ main .sidebar {
 .material-icons {
   padding-bottom: 3px;
   margin-right: 30px;
+}
+
+.dbIcon {
+  vertical-align: middle;
+  margin-right: 20px;
+  padding-bottom: 3px;
 }
 
 #main {

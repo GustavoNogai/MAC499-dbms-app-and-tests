@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 //var { pool } = require("./database.js");
-import { pgGetUser, pgInsertUser, pgPatchUser, pgDeleteUser, myGetUser, myInsertUser, myPatchUser, myDeleteUser } from "./database.js";
+import { pgGetUser, pgInsertUser, pgPatchUser, pgDeleteUser, pgQuery, myGetUser, myInsertUser, myPatchUser, myDeleteUser, myQuery } from "./database.js";
 
 const app = express();
 const port = 3000;
@@ -92,6 +92,21 @@ app.delete("/pgdeletedb", async function (req, res) {
     }
 });
 
+app.post("/pgquerydb", async function (req, res) {
+    const { content } = req.body;
+    console.log("Server:\n  Postgres: Query: " + content + "\n");
+    try {
+        let rows = await pgQuery(content);
+        res.status(200).json({
+            status: "recieved",
+            data: rows
+        });
+        console.log("Server:\n  Postgres: Sucesso no querydb!" + "\n");
+    } catch (err) {
+        console.log("Server:\n  Postgres: Erro no querydb!\n    Erro: " + err.message + "\n");
+        res.status(400).json({ error: err.message });
+    }
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -167,6 +182,22 @@ app.delete("/mydeletedb", async function (req, res) {
             console.error("Server:\n  MySQL: Erro no deletedb!\n    Erro: " + err.message + "\n");
             res.status(400).json({ "error": err.message });
         }
+    }
+});
+
+app.post("/myquerydb", async function (req, res) {
+    const { content } = req.body;
+    console.log("Server:\n  MySQL: Query: " + content + "\n");
+    try {
+        let rows = await myQuery(content);
+        res.status(200).json({
+            status: "recieved",
+            data: rows
+        });
+        console.log("Server:\n  MySQL: Sucesso no querydb!" + "\n");
+    } catch (err) {
+        console.log("Server:\n  MySQL: Erro no querydb!\n    Erro: " + err.message + "\n");
+        res.status(400).json({ error: err.message });
     }
 });
 
