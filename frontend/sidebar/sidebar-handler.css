@@ -30,7 +30,6 @@
     margin-left: 85px;
 }
 
-/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
