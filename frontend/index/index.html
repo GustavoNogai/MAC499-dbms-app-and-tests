@@ -10,54 +10,48 @@
 
 <body>
     <div class="row">
-
-        <h1 style="text-align: center; text-shadow: 2px 2px 1px #00000027;"><br>PostgreSQL</h1>
         <div class="column left">
 	        <object id="sidebar" data="../sidebar/sidebar.html"></object>
         </div>
 
-        <div class="column right" style="margin-left: 85px;">
+        <div class="column right" style="margin-left: 50px;">
+            <h1 style="font-size: 44px; font-weight: bold; text-align: center;">
+                Bem vindo(a)!
+            </h1>
             <br>
-            <div id="query">
-                <div id="editor"></div>
-                <div>
-                    <form id="form" autocomplete="on">
-                        <fieldset>
-                            <h2 class="formTitle">UI para alterar o Banco de Dados <em>"test"</em></h2>
-                            <h3 class="formSubtitle">Preencha os campos abaixo para inserir (<em>submit</em>), alterar (<em>patch</em>) ou deletar (<em>delete</em>) o dado do banco de dados <em>"test"</em>.</h3>
-                            <label for="fname">Name</label><br>
-                                <input type="text" id="fname" name="fname" placeholder="Nome" autocomplete="on">
-                            <br><br>
-                            <label for="email">Email <small>(Chave Primária!)</small></label><br>
-                                <input type="email" id="email" name="email" placeholder="Email" autocomplete="on">
-                            <br><br>
-                            <label for="password">Password</label><br>
-                                <input type="password" id="password" name="password" placeholder="Senha" autocomplete="on">
-                            <br><br>
-                            <input type="submit" id="submit" value="Submit">
-                            <input type="submit" id="patch" value="Patch">
-                            <input type="submit" id="delete" value="Delete">
-                            <br><br>
-                            <button id="getdb">GetBD</button>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
+            <h2 style="font-size: 30px; text-align: center;">
+                Esta aplicação foi feita para interagir e testar códigos SQL nos Sistemas de Gerenciamento de Banco de Dados (SGDBs) PostgreSQL e MySQL
+            </h2>
             <br><br>
-            <button id="queryBtn">Executar Query &#9658;</button>
-            <button id="clearBtn">Limpar Resultado</button>
-            <br><br><br><br>
-            <div id="txt">Resultado da Query</div>
+            <hr>
+            <br><br>
+            <h2 id="resumo" style="font-size: 34px; font-weight: bold;">
+                Como usar
+            </h2>
             <br>
+            <p style="font-size: 24px;">
+                Para utilizar esta aplicação, basta seguir os passos a seguir:
+                <br><br>
+                <ol style="padding-left: 50px; list-style-type:circle;">
+                    <li>Passe o mouse por cima da barra lateral à esquerda da página.</li>
+                    <br>
+                    <li>Clique no item do SGDB que desejar: <em>MySQL</em> ou <em>PostgreSQL</em>.<br>Caso queira mais informações sobre o projeto de TCC como um todo clique em <em>Sobre</em>.</li>
+                    <br>
+                    <li>Ao abrir a nova página, escreva seu código SQL na caixa de texto e clique no botão <em>Executar Query</em> embaixo da própria caixa de texto, o resultado será mostrado abaixo desse botão.<br>Para limpar o resultado devolvido clique no botão <em>Limpar Resultado</em>.</li>
+                    <br>
+                    <li>Caso queira utilizar a UI gráfica, ela se localiza na caixa à direita da caixa de texto.<br>Para usá-la, basta preencher o formulário e clicar no botão <em>Submit</em> para inserir os dados, <em>Patch</em> para alterar os dados ou <em>Delete</em> para excluir os dados.<br>Clicando em <em>GetDB</em> o banco de dados inteiro será exibido no campo de resultados abaixo do botão <em>Executar Query</em>.</li>
+                    <br>
+                    <li><strong>Importante:</strong> A UI gráfica para o banco de dados inicial exige o preenchimento do campo <em>Email</em>, que é a chave primária, para poder realizar as inserções, alterações e exclusões.</li>
+                    <br><br><br><br>
+                </ol>
+            </p>
         </div>
 
     </div>
-    
-    <script src="../public/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../public/ext-language_tools.js"></script>
+
     <script src="../index/index.js"></script>
     <script src="../sidebar/sidebar-handler.js"></script>
-    
+
 </body>
     
 </html>

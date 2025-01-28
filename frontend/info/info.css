@@ -20,23 +20,21 @@ body {
     margin-left: 15%;
     padding: 10px;
     font-size: 20px;
+    color: black;
 }
 
 .right a {
-    font-size: 40px;
+    font-size: 20px;
     border-radius: 13px;
     padding: 15px;
     padding-bottom: 20px;
-    background-color: rgb(121, 138, 162);
+    background-color: rgb(150, 171, 201);
+    color:rgb(39, 45, 53);
 }
 
 .right a:hover {
     cursor: pointer;
     color:rgb(66, 75, 89);
     text-decoration: underline;
-    background-color: rgb(148, 169, 198);
-}
-
-strong{
-    font-weight:bold;
+    background-color: rgb(176, 200, 234);
 }
