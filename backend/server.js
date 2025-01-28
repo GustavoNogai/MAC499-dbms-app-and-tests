@@ -2,14 +2,16 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 
-//var { pool } = require("./database.js");
+// Variaveis importadas do arquivo database.js
 import { pgGetUser, pgInsertUser, pgPatchUser, pgDeleteUser, pgQuery, myGetUser, myInsertUser, myPatchUser, myDeleteUser, myQuery } from "./database.js";
 
+// Configuracoes iniciais do express
 const app = express();
 const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Indica o caminho absoluto da pasta 'frontend'
 app.use(express.static(__dirname + '/../frontend'));
 app.use(express.json());
 app.set("json spaces", 2);
@@ -18,6 +20,10 @@ app.set("json spaces", 2);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Métodos HTTP para o Postgres
+
+
+// GET para o banco de dados inicial do postgres
 app.get("/pggetdb", async (req, res) => {
     try {
         let rows = await pgGetUser();
@@ -32,6 +38,7 @@ app.get("/pggetdb", async (req, res) => {
     }
 });
 
+// POST para o banco de dados inicial do postgres
 app.post("/pgpostdb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  Postgres: Email: " + content.email + "\n");
@@ -52,6 +59,7 @@ app.post("/pgpostdb", async function (req, res) {
     }
 });
 
+// PATCH para o banco de dados inicial do postgres
 app.patch("/pgpatchdb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  Postgres: Email: " + content.email + "\n");
@@ -72,6 +80,7 @@ app.patch("/pgpatchdb", async function (req, res) {
     }
 });
 
+// DELETE para o banco de dados inicial do postgres
 app.delete("/pgdeletedb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  Postgres: Email: " + content.email + "\n");
@@ -92,6 +101,7 @@ app.delete("/pgdeletedb", async function (req, res) {
     }
 });
 
+// POST para a execução de uma query no postgres
 app.post("/pgquerydb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  Postgres: Query: " + content + "\n");
@@ -111,6 +121,10 @@ app.post("/pgquerydb", async function (req, res) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Metodos HTTP para o MySQL
+
+
+// GET para o banco de dados inicial do MySQL
 app.get("/mygetdb", async (req, res) => {
     try {
         let rows = await myGetUser();
@@ -125,6 +139,7 @@ app.get("/mygetdb", async (req, res) => {
     }
 });
 
+// POST para o banco de dados inicial do MySQL
 app.post("/mypostdb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  MySQL: Email: " + content.email + "\n");
@@ -145,6 +160,7 @@ app.post("/mypostdb", async function (req, res) {
     }
 });
 
+// PATCH para o banco de dados inicial do MySQL
 app.patch("/mypatchdb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  MySQL: Email: " + content.email + "\n");
@@ -165,6 +181,7 @@ app.patch("/mypatchdb", async function (req, res) {
     }
 });
 
+// DELETE para o banco de dados inicial do MySQL
 app.delete("/mydeletedb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  MySQL: Email: " + content.email + "\n");
@@ -185,6 +202,7 @@ app.delete("/mydeletedb", async function (req, res) {
     }
 });
 
+// POST para a execução de uma query no mysql
 app.post("/myquerydb", async function (req, res) {
     const { content } = req.body;
     console.log("Server:\n  MySQL: Query: " + content + "\n");
@@ -204,26 +222,18 @@ app.post("/myquerydb", async function (req, res) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-app.get("/get", function (req, res) {
-    res.status(200).json({ info: "Teste GET!" });
-});
-
-app.post("/post", function (req, res) {
-    const { content } = req.body;
-    console.log(content);
-    res.status(200).json({ status: "recieved" });
-});
-
+// GET para definir a página inicial do aplicativo
 app.get("/", function (req, res) {
     console.log(path.join(__dirname, '../frontend/index/index.html' + "\n"));
     res.sendFile(path.join(__dirname, '../frontend/index/index.html'));
 });
 
+// Inicia o servidor no port definido
 var server = app.listen(port, function () {
     console.log(`Listening on port ${port}!` + "\n");
 });
 
+// Encerra o servidor ao receber um sinal de interrupção (como Ctrl + C no terminal)
 process.on("SIGINT", function () {
     console.log("\nServer:\n  Encerrando o servidor...\n");
     server.close(function () {
@@ -232,6 +242,7 @@ process.on("SIGINT", function () {
     });
 });
 
+// Encerra o servidor ao receber um sinal de saida (como Ctrl + \ no terminal)
 process.on("SIGQUIT", function () {
     console.log("\nServer:\n  Encerrando o servidor...\n");
     server.close(function () {
@@ -240,6 +251,7 @@ process.on("SIGQUIT", function () {
     });
 });
 
+// Encerra o servidor ao receber um sinal de terminação (como o comando kill)
 process.on("SIGTERM", function () {
     console.log("\nServer:\n  Encerrando o servidor...\n");
     server.close(function () {

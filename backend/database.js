@@ -1,5 +1,5 @@
-import pg from "pg";
-import mysql from "mysql2";
+import pg from "pg"; // PostgreSQL
+import mysql from "mysql2"; // MySQL
 
 const { Pool, Client } = pg;
 
@@ -7,33 +7,45 @@ const { Pool, Client } = pg;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Alterar as credenciais abaixo de acordo com seu ambiente local para se conectar aos respectivos SGDBs
+
+const userPostgreSQL = "postgres";
+const passwordPostgreSQL = "postgres";
+
+const userMySQL = "root";
+const passwordMySQL = "root";
+
+
+// Cliente criado para preparar o banco de dados inicial do aplicativo
 var pgClient = new Client({
     host: "localhost",
-    user: "postgres",
-    password: "postgres"
+    user: userPostgreSQL,
+    password: passwordPostgreSQL
 });
 
+// Pool criado para a interação com o postgres pelo aplicativo
 var pgPool = new Pool({
     database: "teste_postgres", // Banco de dados que será criado pelo pgClient
     host: "localhost",
-    user: "postgres",
-    password: "postgres",
+    user: userPostgreSQL,
+    password: passwordPostgreSQL,
     keepAlive: true,
     idleTimeoutMillis: 100000
 });
 
-
+// Cliente criado para preparar o banco de dados inicial do aplicativo
 var myClient = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "root"
+    user: userMySQL,
+    password: passwordMySQL
 });
 
+// Pool criado para a interação com o mysql pelo aplicativo
 var myPool = mysql.createPool({
     database: "teste_mysql", // Banco de dados que será criado pelo myClient
     host: "localhost",
-    user: "root",
-    password: "root",
+    user: userMySQL,
+    password: passwordMySQL,
     enableKeepAlive: true,
     idleTimeout: 100000
 });
@@ -42,6 +54,7 @@ var myPool = mysql.createPool({
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Conexão inicial para o preparar o banco de dados inicial do postgres
 await pgClient.connect()
     .then(() => {
         console.log("PostgreSQL: Conexão inicial estabelecida!\n");
@@ -70,6 +83,7 @@ await pgClient.query(pgCreateDB)
 
 await pgClient.end()
 
+// Insere os dados iniciais no banco de dados inicial do postgres
 pgPool.connect(async (err, client) => {
     if (err) {
         return console.error("PostgreSQL: Erro ao conectar: " + err.message + "\n");
@@ -105,6 +119,7 @@ pgPool.connect(async (err, client) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Conexão inicial para o preparar o banco de dados inicial do mysql
 myClient.connect((err) => {
     if (err) {
         return console.error("MySQL: Erro na conexão inicial: " + err.message + "\n");
@@ -127,6 +142,7 @@ myClient.query(myCreateDB, (err) => {
     }
     else {
         console.log("MySQL: Banco de dados criado!\n");
+        // Insere os dados iniciais no banco de dados inicial do mysql
         myPool.getConnection(function(err, connection) {
             if (err) {
                 return console.error("MySQL: Erro ao conectar: " + err.message + "\n");
@@ -169,6 +185,10 @@ myClient.end();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Funções do PostgreSQL exportadas para uso no arquivo server.js
+
+
+// Fornece todos os dados do banco de dados inicial do postgres
 export let pgGetUser = () => {
     console.log("Postgres Database:");
     let get = "SELECT * FROM test";
@@ -187,6 +207,7 @@ export let pgGetUser = () => {
     });
 };
 
+// Insere dados no banco de dados inicial do postgres
 export let pgInsertUser = (dados) => {
     console.log("Postgres Database:");
     let insert = "INSERT INTO test (name, email, password) VALUES ($1, $2, $3) RETURNING *";
@@ -210,6 +231,7 @@ export let pgInsertUser = (dados) => {
     });
 };
 
+// Atualiza dados no banco de dados inicial do postgres
 export let pgPatchUser = (dados) => {
     console.log("Postgres Database:");
     let patch = "UPDATE test SET name = $1, password = $2 WHERE email = $3 RETURNING *";
@@ -233,6 +255,7 @@ export let pgPatchUser = (dados) => {
     });
 };
 
+// Deleta dados no banco de dados inicial do postgres
 export let pgDeleteUser = (dados) => {
     console.log("Postgres Database:");
     let deletar = "DELETE FROM test WHERE email = $1 RETURNING *";
@@ -256,7 +279,7 @@ export let pgDeleteUser = (dados) => {
     });
 };
 
-
+// Executa uma query no postgres
 export let pgQuery = (query) => {
     console.log("Postgres Database:");
     return new Promise((resolve, reject) => {
@@ -273,9 +296,14 @@ export let pgQuery = (query) => {
     });
 }
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Funções do MySQL exportadas para uso no arquivo server.js
+
+
+// Fornece todos os dados do banco de dados inicial do mysql
 export let myGetUser = () => {
     console.log("MySQL Database:");
     let get = "SELECT * FROM user";
@@ -294,6 +322,7 @@ export let myGetUser = () => {
     });
 };
 
+// Insere dados no banco de dados inicial do mysql
 export let myInsertUser = (dados) => {
     console.log("MySQL Database:");
     let insert = "INSERT INTO user (name, email, password) VALUES (?,?,?)";
@@ -317,6 +346,7 @@ export let myInsertUser = (dados) => {
     });
 };
 
+// Atualiza dados no banco de dados inicial do mysql
 export let myPatchUser = (dados) => {
     console.log("MySQL Database:");
     let patch = "UPDATE user SET name = ?, password = ? WHERE email = ?";
@@ -340,6 +370,7 @@ export let myPatchUser = (dados) => {
     });
 };
 
+// Deleta dados no banco de dados inicial do mysql
 export let myDeleteUser = (dados) => {
     console.log("MySQL Database:");
     let deletar = "DELETE FROM user WHERE email = ?";
@@ -363,6 +394,7 @@ export let myDeleteUser = (dados) => {
     });
 };
 
+// Executa uma query no mysql
 export let myQuery = (query) => {
     console.log("MySQL Database:");
     return new Promise((resolve, reject) => {
