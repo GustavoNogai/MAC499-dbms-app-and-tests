@@ -1,5 +1,7 @@
+// Editor de código ace.js (https://ace.c9.io/)
 var editor = ace.edit("editor");
 
+// Elementos HTML do PostgreSQL.html
 const queryBtn = document.getElementById("queryBtn");
 const txt = document.getElementById("txt");
 
@@ -14,6 +16,8 @@ const getdb = document.getElementById("getdb");
 
 const baseURL = "http://localhost:3000/";
 
+
+// Espera de eventos dos elementos do HTML
 getdb.addEventListener("click", getDB);
 submit.addEventListener("click", postDB);
 patch.addEventListener("click", patchDB);
@@ -22,9 +26,9 @@ deletar.addEventListener("click", deleteDB);
 queryBtn.addEventListener("click", queryDB);
 clearBtn.addEventListener("click", clearOut);
 
+// Configuração do editor
 editor.setTheme("ace/theme/monokai");
 editor.session.setMode("ace/mode/pgsql");
-//editor.session.setMode("ace/mode/mysql");
 editor.setOptions({
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true,
@@ -36,6 +40,7 @@ editor.setOptions({
 });
 
 
+// Função para executar um comando SQL escrito no editor no SGDB PostgreSQL
 async function queryDB(e) {
     e.preventDefault();
     let query = editor.getValue();
@@ -54,14 +59,15 @@ async function queryDB(e) {
     const data = await res.json();
     if (res.headers.has("warning")) {
         console.warn("Aviso: " + res.headers.get("warning"));
-    } 
+    }
+    // Se o comando foi executado com sucesso
     else if (res.ok) {
         console.log(data.data.command + " executado com sucesso!");
-        //txt.innerText = JSON.stringify(data.data.rows);
 
         console.log(res);
         console.log(data);
 
+        // Exibir o resultado na página do usuário em caso de comandos específicos do SQL
         if(data.data.command === "SELECT" || data.data.command === "DESCRIBE" || data.data.command === "DESC" || data.data.command === "EXPLAIN" || data.data.command === "SHOW") {
             if(data.data.rowCount === 0) {
                 const colNames = data.data.fields;
@@ -74,17 +80,17 @@ async function queryDB(e) {
                 return;
             }
 
-            const keys = Object.keys(data.data.rows); // get the names properly
+            const keys = Object.keys(data.data.rows);
             console.log(keys)
-            const colNames = Object.keys(data.data.rows[keys[0]]); // get all column names
+            const colNames = Object.keys(data.data.rows[keys[0]]);
             console.log(colNames)
-            // Let's form table and header first
+            
             const table = document.createElement('table');
             const header = document.createElement('tr');
             header.innerHTML += colNames.map(name => `<th>${name}</th>`).join('');
             table.appendChild(header);
 
-            // Now lets append all the rows
+            
             const rows = keys.map((key) => {
               const tr = document.createElement('tr');
               tr.innerHTML += colNames.map(val => `<td>${data.data.rows[key][val]}</td>`).join('');
@@ -93,14 +99,16 @@ async function queryDB(e) {
 
             rows.forEach(row => table.appendChild(row));
 
-            // render
+            
             txt.innerHTML = data.data.command + " executado com sucesso!<br><br><br>";
             txt.innerHTML += table.outerHTML;
         }
+        // Se o comando enviado pelo usuário for vazio
         else if(data.data.command === null) {
             console.log("Query vazia!\n Nenhum comando foi executado!");
             txt.innerHTML = "Query vazia!<br> Nenhum comando foi executado!";
         }
+        // Em caso de outros comandos do SQL
         else {
             console.log(data.data.command + " executado com sucesso!");
             txt.innerHTML = data.data.command + " executado com sucesso!";
@@ -114,12 +122,14 @@ async function queryDB(e) {
 }
 
 
+// Função para limpar o texto dos resultados
 function clearOut(e) {
     e.preventDefault();
     txt.innerHTML = "";
 }
 
 
+// Função para obter os dados do banco de dados inicial
 async function getDB(e){
     e.preventDefault();
     const res = await fetch(baseURL + "pggetdb", 
@@ -128,18 +138,19 @@ async function getDB(e){
         }    
     );
     const data = await res.json();
+    // Se o comando foi executado com sucesso exibir os dados na página do usuário
     if (res.ok) {
-        const keys = Object.keys(data.data.rows); // get the names properly
+        const keys = Object.keys(data.data.rows);
         console.log(keys)
-        const colNames = Object.keys(data.data.rows[keys[0]]); // get all column names
+        const colNames = Object.keys(data.data.rows[keys[0]]);
         console.log(colNames)
-        // Let's form table and header first
+        
         const table = document.createElement('table');
         const header = document.createElement('tr');
         header.innerHTML += colNames.map(name => `<th>${name}</th>`).join('');
         table.appendChild(header);
 
-        // Now lets append all the rows
+        
         const rows = keys.map((key) => {
           const tr = document.createElement('tr');
           tr.innerHTML += colNames.map(val => `<td>${data.data.rows[key][val]}</td>`).join('');
@@ -148,7 +159,7 @@ async function getDB(e){
 
         rows.forEach(row => table.appendChild(row));
 
-        // render
+        
         txt.innerHTML = `GetDB do bd "test" executado com sucesso!<br><br><br>`;
         txt.innerHTML += table.outerHTML;
     }
@@ -159,12 +170,16 @@ async function getDB(e){
     }
 }
 
+
+// Função para inserir dados no banco de dados inicial
 async function postDB(e){
     e.preventDefault();
+    // Se o campo do email estiver vazio ou houver algum erro
     if ((email.value).replace(/\s+/g,'').length === 0){
         console.log("O campo do email está vazio ou houve algum erro!");
         form.reset();
         email.placeholder = "Este campo é obrigatório!";
+        txt.innerHTML = "<span style='color:#FF0800'>O campo do email está vazio ou houve algum erro!</span>";
         return -1;
     }
     const res = await fetch(baseURL + "pgpostdb", 
@@ -186,6 +201,7 @@ async function postDB(e){
         //let data = await res.json();
         console.warn("Aviso: " + res.headers.get("warning"));
     } 
+    // Se o comando foi executado com sucesso
     else if (res.ok) {
         console.log("Inserido com sucesso!");
         txt.innerHTML = "Inserido com sucesso!";
@@ -198,12 +214,16 @@ async function postDB(e){
     form.reset();
 }
 
+
+// Função para atualizar dados no banco de dados inicial
 async function patchDB(e){
     e.preventDefault();
+    // Se o campo do email estiver vazio ou houver algum erro
     if ((email.value).replace(/\s+/g,'').length === 0){
         console.log("O campo do email está vazio ou houve algum erro!");
         form.reset();
         email.placeholder = "Este campo é obrigatório!";
+        txt.innerHTML = "<span style='color:#FF0800'>O campo do email está vazio ou houve algum erro!</span>";
         return -1;
     }
     const res = await fetch(baseURL + "pgpatchdb", 
@@ -224,7 +244,8 @@ async function patchDB(e){
     if (res.headers.has("warning")) {
         //let data = await res.json();
         console.warn("Aviso: " + res.headers.get("warning"));
-    } 
+    }
+    // Se o comando foi executado com sucesso
     else if (res.ok) {
         console.log("Atualizado com sucesso!");
         txt.innerHTML = "Atualizado com sucesso!";
@@ -237,12 +258,16 @@ async function patchDB(e){
     form.reset();
 }
 
+
+// Função para deletar dados no banco de dados inicial
 async function deleteDB(e){
     e.preventDefault();
+    // Se o campo do email estiver vazio ou houver algum erro
     if ((email.value).replace(/\s+/g,'').length === 0){
         console.log("O campo do email está vazio ou houve algum erro!");
         form.reset();
         email.placeholder = "Este campo é obrigatório!";
+        txt.innerHTML = "<span style='color:#FF0800'>O campo do email está vazio ou houve algum erro!</span>";
         return -1;
     }
     const res = await fetch(baseURL + "pgdeletedb", 
@@ -261,7 +286,8 @@ async function deleteDB(e){
     if (res.headers.has("warning")) {
         //let data = await res.json();
         console.warn("Aviso: " + res.headers.get("warning"));
-    } 
+    }
+    // Se o comando foi executado com sucesso
     else if (res.ok) {
         console.log("Deletado com sucesso!");
         txt.innerHTML = "Deletado com sucesso!";
