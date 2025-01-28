@@ -1,0 +1,134 @@
+#################### INSERÇÃO E REMOÇÃO ####################
+
+*** Operações de Inserção ***
+
+-- Inserir um novo usuário
+BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;
+
+-- Inserir uma nova pergunta
+BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;
+
+*** Operações de Remoção ***
+
+-- Remover uma pergunta pelo ID
+BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;
+
+-- Remover links a posts por data de criação
+BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;
+
+-- Remover todas as medalhas de usuários com a razão de reputação para 1+up votes menor do que 0.1
+BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;
+
+-- Remover todas as perguntas que são duplicatas
+BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;
+
+*** Operações de Alteração ***
+
+-- Alterar a reputação de um usuário
+BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;
+
+-- Alterar o título de um conjunto de posts
+BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;
+
+-- Alterar o bounty para votos com bounty dum usuário
+BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;
+
+#################### CONSULTAS ####################
+
+*** Busca de Registro por Única Chave Primária ***
+
+-- Buscar um usuário pelo ID
+SELECT * FROM "Users" WHERE "Id" = 1929;
+
+-- Buscar uma pergunta pelo ID
+SELECT * FROM "Posts" WHERE "Id" = 684;
+
+-- Buscar uma medalha pelo ID
+SELECT * FROM "Badges" WHERE "Id" = 22656;
+
+-- Busca de Registros por Faixa de Chaves Primárias
+
+-- Buscar usuários com IDs em uma faixa
+SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;
+
+-- Buscar perguntas com IDs em uma faixa
+SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;
+
+-- Buscar medalhas com IDs em uma faixa
+SELECT * FROM "Badges" WHERE "Id"<777;
+___________________________________________________
+
+*** Busca de Registros por Atributos Não-chave Primária ***
+
+-- Buscar usuários pelo nome de exibição
+SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';
+
+-- Buscar perguntas por título
+SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';
+
+-- Buscar medalhas pelo ID de usuário
+SELECT * FROM "Badges" WHERE "UserId" = 22656;
+
+*** Busca de Registros com Condições de Seleção Compostas ****
+
+-- Buscar usuários com uma reputação mínima e um determinado nome de exibição
+SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';
+
+-- Buscar perguntas com um título específico e criadas por um determinado usuário
+SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';
+
+-- Buscar medalhas por faixa de data de aquisição e tamanho do seu nome
+SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;
+___________________________________________________
+
+*** Busca de Registros por Meio de Padrões de Strings (usando o operador LIKE) ***
+
+-- Buscar usuários cujo nome de exibição começa com 'Alan'
+SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';
+
+-- Buscar perguntas cujo título contém a palavra 'enigma'
+SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';
+
+-- Buscar usuários cujo nome de exibição termina com 'Turing'
+SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';
+
+-- Buscar comentários com escore positivo e que contenham a palavra 'SQL'
+SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';
+___________________________________________________
+
+*** Busca Envolvendo Relacionamentos ***
+
+-- Buscar as perguntas de um usuário específico e suas respectivas respostas
+SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";
+
+-- Buscar os usuários que fizeram perguntas ou respostas
+SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";
+
+-- Buscar os títulos das perguntas com ID numa faixa e a quantidade de respostas que cada uma recebeu
+SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";
+___________________________________________________
+
+*** Busca Envolvendo Subconsultas ***
+
+-- Buscar posts que não tem links para outros posts
+SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");
+
+-- Buscar usuários que não receberam a medalha Teacher
+SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');
+___________________________________________________
+
+*** Buscas Envolvendo Operações de Agrupamento e Agregações ***
+
+-- Buscar o número total de perguntas feitas por cada usuário
+SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";
+
+-- Buscar a reputação média dos usuários
+SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";
+
+-- Buscar a quantidade de respostas para cada pergunta
+SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";
+
+-- Buscar a pontuação mínima e máxima de perguntas
+SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;
+
+

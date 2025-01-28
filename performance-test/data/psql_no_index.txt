@@ -1,0 +1,1021 @@
+Query Number|Query|Run|Elapsed Time
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|1|0.133
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|1|0.147
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|1|0.130
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|1|0.167
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|1|0.331
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|1|0.215
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|1|0.167
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|1|62.395
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|1|8.336
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|1|0.213
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|1|0.150
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|1|0.194
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|1|0.144
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|1|0.131
+15|SELECT * FROM "Badges" WHERE "Id"<777;|1|0.133
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|1|1.039
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|1|52.781
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|1|2.009
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|1|1.345
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|1|41.528
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|1|3.562
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|1|0.406
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|1|14.199
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|1|0.560
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|1|16.949
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|1|25.629
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|1|1.426
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|1|1.149
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|1|9.346
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|1|2.068
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|1|5.733
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|1|0.227
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|1|3.458
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|1|0.552
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|2|0.333
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|2|0.219
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|2|0.246
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|2|0.717
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|2|2.333
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|2|0.312
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|2|0.473
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|2|1.138
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|2|5.588
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|2|0.342
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|2|0.141
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|2|0.137
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|2|0.272
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|2|0.195
+15|SELECT * FROM "Badges" WHERE "Id"<777;|2|0.168
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|2|0.154
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|2|19.978
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|2|2.351
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|2|0.821
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|2|1.385
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|2|1.622
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|2|0.283
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|2|0.556
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|2|0.450
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|2|9.557
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|2|23.558
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|2|2.329
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|2|0.816
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|2|5.469
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|2|0.801
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|2|0.918
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|2|0.536
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|2|3.216
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|2|0.618
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|3|0.227
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|3|0.414
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|3|0.683
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|3|0.545
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|3|1.635
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|3|0.206
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|3|0.169
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|3|1.517
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|3|3.017
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|3|0.239
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|3|0.899
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|3|0.277
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|3|0.178
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|3|0.259
+15|SELECT * FROM "Badges" WHERE "Id"<777;|3|0.363
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|3|0.852
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|3|21.537
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|3|0.480
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|3|0.327
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|3|0.658
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|3|0.940
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|3|0.251
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|3|0.584
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|3|0.204
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|3|9.353
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|3|26.417
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|3|3.048
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|3|1.358
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|3|7.472
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|3|1.616
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|3|1.735
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|3|1.095
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|3|3.356
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|3|0.750
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|4|1.089
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|4|0.602
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|4|0.201
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|4|0.396
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|4|1.618
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|4|0.360
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|4|0.156
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|4|1.566
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|4|3.057
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|4|0.570
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|4|0.246
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|4|0.192
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|4|0.315
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|4|0.947
+15|SELECT * FROM "Badges" WHERE "Id"<777;|4|0.387
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|4|0.269
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|4|7.181
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|4|0.718
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|4|0.367
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|4|17.534
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|4|1.407
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|4|0.762
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|4|0.652
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|4|0.239
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|4|11.476
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|4|18.007
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|4|3.469
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|4|4.063
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|4|7.981
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|4|1.490
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|4|6.001
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|4|0.571
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|4|3.305
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|4|0.661
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|5|0.509
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|5|0.430
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|5|0.480
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|5|0.469
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|5|1.413
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|5|0.310
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|5|0.286
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|5|1.685
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|5|3.145
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|5|0.501
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|5|0.310
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|5|0.276
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|5|0.213
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|5|0.182
+15|SELECT * FROM "Badges" WHERE "Id"<777;|5|0.220
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|5|1.697
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|5|11.269
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|5|1.008
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|5|0.419
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|5|17.951
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|5|2.350
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|5|0.335
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|5|0.854
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|5|0.228
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|5|8.839
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|5|22.790
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|5|2.112
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|5|1.050
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|5|6.878
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|5|1.478
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|5|1.050
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|5|0.315
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|5|3.764
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|5|0.756
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|6|0.342
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|6|0.472
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|6|0.310
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|6|0.364
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|6|1.183
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|6|0.330
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|6|0.436
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|6|2.206
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|6|4.115
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|6|1.523
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|6|0.275
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|6|0.181
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|6|0.467
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|6|0.674
+15|SELECT * FROM "Badges" WHERE "Id"<777;|6|0.377
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|6|0.828
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|6|7.268
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|6|1.024
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|6|2.311
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|6|15.579
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|6|1.150
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|6|0.384
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|6|8.668
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|6|0.771
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|6|8.850
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|6|20.151
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|6|4.478
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|6|1.990
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|6|6.368
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|6|1.948
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|6|1.216
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|6|0.961
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|6|3.529
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|6|0.979
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|7|0.910
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|7|0.737
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|7|0.265
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|7|0.526
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|7|0.773
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|7|0.242
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|7|0.389
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|7|3.055
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|7|2.912
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|7|0.328
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|7|0.196
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|7|0.214
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|7|0.164
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|7|0.196
+15|SELECT * FROM "Badges" WHERE "Id"<777;|7|0.258
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|7|0.328
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|7|15.754
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|7|1.098
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|7|0.562
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|7|13.810
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|7|2.294
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|7|0.463
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|7|2.349
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|7|0.631
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|7|9.119
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|7|22.840
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|7|3.283
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|7|2.661
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|7|6.010
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|7|1.291
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|7|4.674
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|7|0.615
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|7|3.470
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|7|0.867
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|8|0.562
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|8|0.392
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|8|0.266
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|8|0.691
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|8|1.898
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|8|0.403
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|8|0.585
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|8|2.377
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|8|5.183
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|8|0.353
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|8|0.290
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|8|0.270
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|8|0.212
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|8|0.193
+15|SELECT * FROM "Badges" WHERE "Id"<777;|8|0.255
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|8|0.605
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|8|14.655
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|8|1.128
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|8|0.639
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|8|10.063
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|8|1.274
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|8|0.292
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|8|0.805
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|8|0.233
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|8|8.138
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|8|23.074
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|8|2.040
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|8|1.301
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|8|6.473
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|8|1.767
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|8|2.318
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|8|0.497
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|8|3.387
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|8|0.748
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|9|0.353
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|9|0.267
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|9|0.633
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|9|0.368
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|9|0.640
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|9|0.537
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|9|0.625
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|9|1.726
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|9|3.718
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|9|1.833
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|9|0.819
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|9|0.434
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|9|0.294
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|9|0.206
+15|SELECT * FROM "Badges" WHERE "Id"<777;|9|0.291
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|9|0.329
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|9|10.878
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|9|0.576
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|9|0.251
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|9|16.310
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|9|1.726
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|9|0.645
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|9|1.013
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|9|0.318
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|9|8.263
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|9|19.190
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|9|2.047
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|9|0.942
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|9|5.777
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|9|1.296
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|9|2.318
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|9|0.404
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|9|3.295
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|9|0.714
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|10|1.005
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|10|0.329
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|10|0.910
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|10|0.953
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|10|1.271
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|10|0.259
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|10|0.259
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|10|2.039
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|10|4.411
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|10|0.891
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|10|1.072
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|10|0.196
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|10|0.260
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|10|0.413
+15|SELECT * FROM "Badges" WHERE "Id"<777;|10|0.234
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|10|0.246
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|10|4.527
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|10|0.360
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|10|0.283
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|10|13.149
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|10|1.076
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|10|0.252
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|10|2.665
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|10|0.219
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|10|8.703
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|10|19.345
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|10|5.711
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|10|3.973
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|10|9.390
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|10|2.272
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|10|7.620
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|10|0.606
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|10|3.557
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|10|2.185
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|11|0.643
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|11|0.281
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|11|0.313
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|11|0.436
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|11|0.927
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|11|0.676
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|11|0.324
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|11|2.370
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|11|3.441
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|11|0.364
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|11|0.364
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|11|1.386
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|11|1.293
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|11|0.293
+15|SELECT * FROM "Badges" WHERE "Id"<777;|11|0.249
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|11|0.649
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|11|24.909
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|11|1.532
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|11|1.165
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|11|4.217
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|11|0.921
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|11|0.373
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|11|0.789
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|11|0.309
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|11|9.336
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|11|28.917
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|11|3.554
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|11|2.336
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|11|10.692
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|11|2.815
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|11|2.900
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|11|0.976
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|11|3.568
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|11|1.211
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|12|0.422
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|12|0.537
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|12|0.279
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|12|0.837
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|12|1.124
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|12|0.457
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|12|0.524
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|12|2.121
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|12|6.098
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|12|0.316
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|12|0.179
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|12|0.266
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|12|0.295
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|12|1.730
+15|SELECT * FROM "Badges" WHERE "Id"<777;|12|0.206
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|12|0.885
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|12|27.543
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|12|1.338
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|12|0.773
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|12|2.650
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|12|1.387
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|12|0.214
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|12|0.642
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|12|0.290
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|12|8.567
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|12|24.502
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|12|1.594
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|12|1.417
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|12|13.447
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|12|3.468
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|12|3.699
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|12|1.266
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|12|3.760
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|12|1.376
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|13|0.481
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|13|0.905
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|13|0.333
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|13|0.693
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|13|1.195
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|13|0.521
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|13|0.524
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|13|2.174
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|13|4.900
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|13|0.395
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|13|0.318
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|13|0.640
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|13|0.322
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|13|0.219
+15|SELECT * FROM "Badges" WHERE "Id"<777;|13|0.553
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|13|2.000
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|13|26.840
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|13|1.421
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|13|0.569
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|13|3.380
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|13|1.426
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|13|0.538
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|13|0.799
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|13|1.377
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|13|18.224
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|13|32.318
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|13|4.728
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|13|6.962
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|13|14.105
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|13|8.066
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|13|13.393
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|13|1.338
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|13|5.324
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|13|2.904
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|14|0.435
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|14|0.413
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|14|0.327
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|14|0.297
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|14|1.720
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|14|0.505
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|14|0.609
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|14|3.225
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|14|4.379
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|14|1.294
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|14|0.463
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|14|0.761
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|14|0.369
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|14|0.278
+15|SELECT * FROM "Badges" WHERE "Id"<777;|14|0.299
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|14|0.461
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|14|24.599
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|14|1.658
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|14|0.627
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|14|3.044
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|14|1.503
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|14|0.436
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|14|0.651
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|14|0.189
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|14|10.502
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|14|31.463
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|14|5.523
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|14|3.932
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|14|37.776
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|14|5.398
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|14|12.130
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|14|0.598
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|14|10.895
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|14|4.160
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|15|1.155
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|15|1.267
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|15|0.429
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|15|5.137
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|15|4.036
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|15|1.242
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|15|0.692
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|15|2.309
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|15|3.311
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|15|0.399
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|15|0.670
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|15|0.304
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|15|0.369
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|15|0.246
+15|SELECT * FROM "Badges" WHERE "Id"<777;|15|0.219
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|15|0.462
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|15|11.064
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|15|1.990
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|15|0.545
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|15|11.606
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|15|2.222
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|15|0.423
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|15|1.302
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|15|0.335
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|15|9.375
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|15|20.276
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|15|1.995
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|15|1.642
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|15|13.566
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|15|2.799
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|15|2.799
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|15|0.359
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|15|3.783
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|15|0.865
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|16|0.482
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|16|0.434
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|16|0.754
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|16|0.594
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|16|1.845
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|16|0.327
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|16|0.590
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|16|2.430
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|16|4.980
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|16|1.123
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|16|0.543
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|16|0.255
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|16|0.485
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|16|0.261
+15|SELECT * FROM "Badges" WHERE "Id"<777;|16|0.365
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|16|0.908
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|16|30.621
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|16|1.597
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|16|0.598
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|16|11.021
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|16|1.395
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|16|1.657
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|16|1.752
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|16|0.533
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|16|9.259
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|16|22.028
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|16|1.515
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|16|1.538
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|16|7.753
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|16|1.807
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|16|1.979
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|16|1.365
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|16|3.912
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|16|0.763
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|17|0.494
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|17|1.038
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|17|0.479
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|17|0.500
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|17|0.885
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|17|0.396
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|17|0.330
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|17|1.959
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|17|3.069
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|17|0.386
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|17|0.325
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|17|0.336
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|17|0.239
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|17|0.532
+15|SELECT * FROM "Badges" WHERE "Id"<777;|17|0.212
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|17|0.365
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|17|8.841
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|17|1.221
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|17|0.625
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|17|26.710
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|17|2.626
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|17|0.457
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|17|1.054
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|17|0.340
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|17|8.394
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|17|30.303
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|17|1.956
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|17|1.633
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|17|6.568
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|17|1.829
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|17|1.085
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|17|0.444
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|17|3.954
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|17|0.878
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|18|0.347
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|18|0.686
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|18|0.259
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|18|0.268
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|18|1.046
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|18|0.814
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|18|0.500
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|18|2.252
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|18|3.523
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|18|0.474
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|18|0.450
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|18|0.328
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|18|0.429
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|18|0.987
+15|SELECT * FROM "Badges" WHERE "Id"<777;|18|0.255
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|18|0.355
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|18|11.835
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|18|1.696
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|18|0.773
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|18|17.267
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|18|2.508
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|18|0.247
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|18|0.732
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|18|0.190
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|18|9.721
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|18|30.141
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|18|2.998
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|18|0.841
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|18|6.137
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|18|2.215
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|18|2.479
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|18|0.657
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|18|3.997
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|18|0.688
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|19|0.412
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|19|0.658
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|19|0.474
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|19|0.643
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|19|1.492
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|19|0.402
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|19|0.198
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|19|1.921
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|19|3.863
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|19|0.611
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|19|0.201
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|19|0.247
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|19|0.522
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|19|0.191
+15|SELECT * FROM "Badges" WHERE "Id"<777;|19|0.209
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|19|0.318
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|19|15.155
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|19|1.186
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|19|0.589
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|19|2.627
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|19|1.795
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|19|0.302
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|19|1.022
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|19|0.207
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|19|8.617
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|19|28.676
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|19|2.759
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|19|2.257
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|19|8.102
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|19|2.770
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|19|5.397
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|19|0.797
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|19|3.378
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|19|0.770
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|20|0.320
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|20|0.470
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|20|0.540
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|20|1.097
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|20|0.879
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|20|0.398
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|20|0.244
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|20|2.374
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|20|3.112
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|20|0.638
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|20|0.274
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|20|0.374
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|20|0.234
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|20|0.266
+15|SELECT * FROM "Badges" WHERE "Id"<777;|20|0.340
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|20|0.339
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|20|13.677
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|20|0.806
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|20|0.324
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|20|18.971
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|20|2.110
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|20|1.571
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|20|1.293
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|20|0.255
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|20|9.011
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|20|32.678
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|20|2.451
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|20|2.018
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|20|8.790
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|20|1.956
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|20|2.192
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|20|0.497
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|20|3.754
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|20|0.749
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|21|0.477
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|21|0.494
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|21|0.838
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|21|1.017
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|21|2.630
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|21|1.188
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|21|0.664
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|21|2.624
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|21|3.809
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|21|0.664
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|21|0.342
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|21|0.276
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|21|0.581
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|21|0.699
+15|SELECT * FROM "Badges" WHERE "Id"<777;|21|0.663
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|21|1.183
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|21|23.564
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|21|1.543
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|21|0.660
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|21|22.765
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|21|1.875
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|21|0.621
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|21|1.215
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|21|0.214
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|21|9.192
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|21|32.976
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|21|2.329
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|21|1.940
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|21|8.405
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|21|2.089
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|21|4.880
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|21|0.581
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|21|3.898
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|21|1.588
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|22|0.672
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|22|0.788
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|22|0.353
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|22|1.154
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|22|1.141
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|22|0.880
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|22|0.258
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|22|2.002
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|22|4.404
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|22|0.445
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|22|0.233
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|22|0.251
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|22|0.265
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|22|0.411
+15|SELECT * FROM "Badges" WHERE "Id"<777;|22|0.309
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|22|0.291
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|22|5.955
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|22|1.388
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|22|1.340
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|22|30.942
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|22|2.515
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|22|0.736
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|22|8.053
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|22|0.795
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|22|10.716
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|22|43.903
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|22|6.642
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|22|4.842
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|22|9.444
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|22|3.034
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|22|1.579
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|22|0.348
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|22|3.255
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|22|0.689
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|23|0.366
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|23|0.369
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|23|0.702
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|23|1.361
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|23|1.773
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|23|0.442
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|23|0.377
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|23|2.060
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|23|3.343
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|23|0.429
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|23|0.407
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|23|0.257
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|23|0.355
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|23|0.341
+15|SELECT * FROM "Badges" WHERE "Id"<777;|23|0.580
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|23|1.046
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|23|11.326
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|23|1.924
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|23|2.862
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|23|22.009
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|23|2.234
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|23|0.746
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|23|4.129
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|23|0.471
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|23|9.694
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|23|28.952
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|23|3.105
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|23|1.485
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|23|12.129
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|23|3.067
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|23|6.464
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|23|0.488
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|23|3.474
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|23|0.762
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|24|0.868
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|24|0.491
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|24|0.381
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|24|0.781
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|24|1.542
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|24|0.629
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|24|0.639
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|24|2.227
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|24|4.514
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|24|0.410
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|24|0.217
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|24|0.186
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|24|0.218
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|24|0.254
+15|SELECT * FROM "Badges" WHERE "Id"<777;|24|0.251
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|24|0.496
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|24|15.737
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|24|0.880
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|24|0.526
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|24|13.288
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|24|0.959
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|24|0.429
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|24|9.139
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|24|0.943
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|24|9.180
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|24|32.452
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|24|3.696
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|24|2.242
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|24|9.924
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|24|2.400
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|24|4.156
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|24|0.745
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|24|3.648
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|24|2.160
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|25|0.426
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|25|0.683
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|25|0.285
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|25|1.706
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|25|0.963
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|25|0.439
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|25|0.305
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|25|2.069
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|25|3.772
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|25|0.636
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|25|0.793
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|25|1.078
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|25|0.439
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|25|0.237
+15|SELECT * FROM "Badges" WHERE "Id"<777;|25|0.236
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|25|0.699
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|25|17.214
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|25|1.132
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|25|0.960
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|25|15.770
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|25|1.773
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|25|0.423
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|25|2.375
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|25|0.497
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|25|9.980
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|25|47.272
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|25|4.874
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|25|2.443
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|25|7.346
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|25|2.461
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|25|3.024
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|25|0.465
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|25|4.888
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|25|0.730
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|26|0.232
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|26|0.309
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|26|0.250
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|26|0.540
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|26|2.151
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|26|0.553
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|26|0.385
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|26|1.853
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|26|3.440
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|26|0.767
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|26|0.318
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|26|0.353
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|26|0.478
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|26|0.346
+15|SELECT * FROM "Badges" WHERE "Id"<777;|26|0.590
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|26|0.828
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|26|18.726
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|26|2.334
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|26|1.039
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|26|20.315
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|26|1.691
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|26|0.543
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|26|3.910
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|26|0.803
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|26|10.251
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|26|29.719
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|26|4.617
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|26|3.420
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|26|6.614
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|26|1.994
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|26|1.477
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|26|0.439
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|26|3.418
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|26|0.924
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|27|1.819
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|27|1.481
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|27|0.428
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|27|1.332
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|27|2.167
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|27|0.672
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|27|0.622
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|27|2.469
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|27|3.476
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|27|1.024
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|27|0.574
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|27|0.358
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|27|0.255
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|27|0.215
+15|SELECT * FROM "Badges" WHERE "Id"<777;|27|0.236
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|27|0.428
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|27|21.777
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|27|0.713
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|27|0.696
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|27|12.710
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|27|1.602
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|27|0.571
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|27|3.314
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|27|0.282
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|27|10.661
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|27|44.137
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|27|6.488
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|27|2.234
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|27|7.039
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|27|3.818
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|27|1.528
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|27|1.566
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|27|4.947
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|27|0.874
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|28|0.370
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|28|0.402
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|28|0.314
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|28|0.372
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|28|0.699
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|28|0.325
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|28|0.645
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|28|2.417
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|28|5.180
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|28|0.530
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|28|0.434
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|28|0.369
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|28|0.414
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|28|0.299
+15|SELECT * FROM "Badges" WHERE "Id"<777;|28|0.316
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|28|0.683
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|28|20.867
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|28|1.009
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|28|0.820
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|28|17.787
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|28|2.349
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|28|0.868
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|28|4.214
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|28|0.570
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|28|15.047
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|28|51.891
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|28|5.156
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|28|2.868
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|28|10.824
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|28|4.233
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|28|1.391
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|28|0.476
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|28|3.745
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|28|0.852
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|29|0.325
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|29|0.429
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|29|0.314
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|29|0.857
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|29|1.090
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|29|0.355
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|29|0.225
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|29|3.128
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|29|5.175
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|29|0.461
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|29|0.420
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|29|0.335
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|29|0.456
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|29|0.547
+15|SELECT * FROM "Badges" WHERE "Id"<777;|29|0.470
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|29|1.083
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|29|24.488
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|29|0.529
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|29|0.918
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|29|21.728
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|29|1.777
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|29|0.535
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|29|7.754
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|29|0.256
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|29|9.406
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|29|35.318
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|29|3.561
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|29|1.889
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|29|8.210
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|29|4.065
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|29|4.920
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|29|0.467
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|29|3.421
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|29|1.073
+1|BEGIN; INSERT INTO "Users" VALUES (-2,'sampletext', 41, '2024-05-17', 'Alan Turing', 0, 'samplemail', '2024-05-17', 'Light', 100, 0, 0, 'samplesite', 1); ROLLBACK;|30|1.310
+2|BEGIN; INSERT INTO "Posts" ("Id","Body","CreationDate","LastActivityDate","OwnerUserId","PostTypeId","Score","ViewCount","Title") VALUES (-2, 'I need help with computational complexity of enigma.', '2023-06-05 14:05:13.24', '2023-06-05 14:05:13.24', 22656, 1, 0, 0, 'How to decypher enigma?'); ROLLBACK;|30|0.627
+3|BEGIN; DELETE FROM "Posts" WHERE "Id" = 1 AND "PostTypeId" = 1; ROLLBACK;|30|0.565
+4|BEGIN; DELETE FROM "PostLinks" WHERE "CreationDate" < '2014-01-01'; ROLLBACK;|30|0.631
+5|BEGIN; DELETE FROM "Badges" WHERE "UserId" IN (SELECT "Id" FROM "Users" WHERE "Reputation"/("UpVotes"+1)<0.1); ROLLBACK;|30|3.071
+6|BEGIN; DELETE FROM "Posts" WHERE "Id" IN (SELECT "PostId" FROM "PostLinks" WHERE "LinkTypeId"=3) AND "PostTypeId"=1; ROLLBACK;|30|1.093
+7|BEGIN; UPDATE "Users" SET "Reputation" = 111 WHERE "Id" = 1; ROLLBACK;|30|0.677
+8|BEGIN; UPDATE "Posts" SET "Title" = 'How to decypher enigma?' WHERE "Title" LIKE '?%'; ROLLBACK;|30|2.025
+9|BEGIN; UPDATE "Votes" SET "BountyAmount"=2*"BountyAmount" WHERE "BountyAmount" IS NOT NULL AND "UserId"=777; ROLLBACK;|30|3.151
+10|SELECT * FROM "Users" WHERE "Id" = 1929;|30|0.549
+11|SELECT * FROM "Posts" WHERE "Id" = 684;|30|0.341
+12|SELECT * FROM "Badges" WHERE "Id" = 22656;|30|0.295
+13|SELECT * FROM "Users" WHERE "Id" BETWEEN 120 AND 150;|30|0.431
+14|SELECT * FROM "Posts" WHERE "Id" BETWEEN 233 AND 244;|30|0.196
+15|SELECT * FROM "Badges" WHERE "Id"<777;|30|0.173
+16|SELECT * FROM "Users" WHERE "DisplayName" = 'Alan Turing';|30|0.517
+17|SELECT * FROM "Posts" WHERE "Title" = 'Is MAC0499 cool?';|30|25.131
+18|SELECT * FROM "Badges" WHERE "UserId" = 22656;|30|0.736
+19|SELECT * FROM "Users" WHERE "Reputation" >= 99 AND "DisplayName" = 'John Doe';|30|0.770
+20|SELECT * FROM "Posts" WHERE "OwnerUserId" = 1 AND "Title" = 'Is MAC0499 cool?';|30|19.071
+21|SELECT * FROM "Badges" WHERE "Date"<'2014-01-01' AND LENGTH("Name")<7;|30|2.007
+22|SELECT * FROM "Users" WHERE "DisplayName" LIKE 'Alan%';|30|0.578
+23|SELECT * FROM "Posts" WHERE "Title" LIKE '%enigma%';|30|7.913
+24|SELECT * FROM "Users" WHERE "DisplayName" LIKE '%Turing';|30|0.342
+25|SELECT * FROM "Comments" WHERE "Score">0 AND "Text" LIKE '%SQL%';|30|11.283
+26|SELECT q."Id" AS "QuestionId", q."Title" AS "QuestionTitle", a."Id" AS "AnswerId", a."Body" AS "AnswerBody" FROM (SELECT "Id", "Title" FROM "Posts" WHERE "OwnerUserId" = 123 AND "PostTypeId" = 1) q JOIN (SELECT "Id", "ParentId", "Body" FROM "Posts" WHERE "PostTypeId" = 2) a ON q."Id" = a."ParentId";|30|43.943
+27|SELECT u."Id", u."DisplayName", p."Title", p."PostTypeId" FROM (SELECT "Id", "DisplayName" FROM "Users") u JOIN (SELECT "Id", "Title", "OwnerUserId", "PostTypeId" FROM "Posts" WHERE "PostTypeId" IN (1, 2) LIMIT 200000) p ON u."Id" = p."OwnerUserId";|30|4.972
+28|SELECT q."Title", COUNT(a."Id") AS "AnswerCount" FROM (SELECT "Title", "Id" FROM "Posts" WHERE "Id" BETWEEN 777 AND 77777 AND "PostTypeId" = 1) q LEFT JOIN (SELECT "Id", "ParentId" FROM "Posts" WHERE "OwnerUserId"=22656 AND "PostTypeId" = 2) a ON q."Id" = a."ParentId" GROUP BY q."Id", q."Title";|30|3.154
+29|SELECT "Id", "Title" FROM "Posts" WHERE "Id" NOT IN (SELECT "PostId" FROM "PostLinks");|30|7.394
+30|SELECT "Id","DisplayName" FROM "Users" WHERE "Id" NOT IN (SELECT "UserId" FROM "Badges" WHERE "Name"='Teacher');|30|3.087
+31|SELECT "OwnerUserId", COUNT(*) AS "TotalQuestions" FROM "Posts" WHERE "PostTypeId" = 1 GROUP BY "OwnerUserId";|30|4.694
+32|SELECT AVG("Reputation") AS "AverageReputation" FROM "Users";|30|0.563
+33|SELECT "ParentId", COUNT(*) AS "TotalAnswers" FROM "Posts" WHERE "PostTypeId" = 2 GROUP BY "ParentId";|30|3.450
+34|SELECT MIN("Score") AS "MinimumScore", MAX("Score") AS "MaximumScore" FROM "Posts" WHERE "PostTypeId" = 1;|30|0.853
