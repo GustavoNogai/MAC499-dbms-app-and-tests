@@ -20,7 +20,7 @@ echo "Query Number|Query|Run|Elapsed Time" >> results.txt
 # Executar testes
 for (( i=1; i<=$NUM_RUNS; i++ ))
 do
-    for query in $(cat mysql_queries.txt)
+    for query in $(cat queries/mysql_queries.txt)
     do
         QUERY_NUM=$((QUERY_NUM + 1))
 	echo "query $i: $query"
